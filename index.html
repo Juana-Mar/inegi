@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Palaciosmunicipales_1.js"></script>
+        <script src="data/CoordinacionesestatalesINEGI_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[15.88731696363637,-116.150763],[33.52449303636364,-87.62003700000001]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_StamenTerrain_0');
+        map.getPane('pane_StamenTerrain_0').style.zIndex = 400;
+        var layer_StamenTerrain_0 = L.tileLayer('http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', {
+            pane: 'pane_StamenTerrain_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_StamenTerrain_0;
+        map.addLayer(layer_StamenTerrain_0);
+        function pop_Palaciosmunicipales_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID_Entidad</th>\
+                        <td>' + (feature.properties['ID_Entidad'] !== null ? autolinker.link(feature.properties['ID_Entidad'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entidad</th>\
+                        <td>' + (feature.properties['Entidad'] !== null ? autolinker.link(feature.properties['Entidad'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Entidad (a</th>\
+                        <td>' + (feature.properties['Entidad (a'] !== null ? autolinker.link(feature.properties['Entidad (a'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID_Municip</th>\
+                        <td>' + (feature.properties['ID_Municip'] !== null ? autolinker.link(feature.properties['ID_Municip'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Municipio</th>\
+                        <td>' + (feature.properties['Municipio'] !== null ? autolinker.link(feature.properties['Municipio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Dirección</th>\
+                        <td>' + (feature.properties['Dirección'] !== null ? autolinker.link(feature.properties['Dirección'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Número ex</th>\
+                        <td>' + (feature.properties['Número ex'] !== null ? autolinker.link(feature.properties['Número ex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Número in</th>\
+                        <td>' + (feature.properties['Número in'] !== null ? autolinker.link(feature.properties['Número in'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Colonia</th>\
+                        <td>' + (feature.properties['Colonia'] !== null ? autolinker.link(feature.properties['Colonia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Código Po</th>\
+                        <td>' + (feature.properties['Código Po'] !== null ? autolinker.link(feature.properties['Código Po'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Direcci�_1</th>\
+                        <td>' + (feature.properties['Direcci�_1'] !== null ? autolinker.link(feature.properties['Direcci�_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Teléfono</th>\
+                        <td>' + (feature.properties['Teléfono'] !== null ? autolinker.link(feature.properties['Teléfono'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Página We</th>\
+                        <td>' + (feature.properties['Página We'] !== null ? autolinker.link(feature.properties['Página We'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Latitud</th>\
+                        <td>' + (feature.properties['Latitud'] !== null ? autolinker.link(feature.properties['Latitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Longitud</th>\
+                        <td>' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Palaciosmunicipales_1_0() {
+            return {
+                pane: 'pane_Palaciosmunicipales_1',
+                radius: 5.200000000000001,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(26,32,207,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Palaciosmunicipales_1');
+        map.getPane('pane_Palaciosmunicipales_1').style.zIndex = 401;
+        map.getPane('pane_Palaciosmunicipales_1').style['mix-blend-mode'] = 'normal';
+        var layer_Palaciosmunicipales_1 = new L.geoJson(json_Palaciosmunicipales_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Palaciosmunicipales_1',
+            layerName: 'layer_Palaciosmunicipales_1',
+            pane: 'pane_Palaciosmunicipales_1',
+            onEachFeature: pop_Palaciosmunicipales_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_Palaciosmunicipales_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Palaciosmunicipales_1);
+        map.addLayer(layer_Palaciosmunicipales_1);
+        function pop_CoordinacionesestatalesINEGI_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Entidad'] !== null ? autolinker.link(feature.properties['Entidad'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Coordinaci'] !== null ? autolinker.link(feature.properties['Coordinaci'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Dirección'] !== null ? autolinker.link(feature.properties['Dirección'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Direcci�_1'] !== null ? autolinker.link(feature.properties['Direcci�_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Latitud'] !== null ? autolinker.link(feature.properties['Latitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CoordinacionesestatalesINEGI_2_0() {
+            return {
+                pane: 'pane_CoordinacionesestatalesINEGI_2',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,221,217,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CoordinacionesestatalesINEGI_2');
+        map.getPane('pane_CoordinacionesestatalesINEGI_2').style.zIndex = 402;
+        map.getPane('pane_CoordinacionesestatalesINEGI_2').style['mix-blend-mode'] = 'normal';
+        var layer_CoordinacionesestatalesINEGI_2 = new L.geoJson(json_CoordinacionesestatalesINEGI_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CoordinacionesestatalesINEGI_2',
+            layerName: 'layer_CoordinacionesestatalesINEGI_2',
+            pane: 'pane_CoordinacionesestatalesINEGI_2',
+            onEachFeature: pop_CoordinacionesestatalesINEGI_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CoordinacionesestatalesINEGI_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CoordinacionesestatalesINEGI_2);
+        map.addLayer(layer_CoordinacionesestatalesINEGI_2);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_Palaciosmunicipales_1,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Municipio'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        </script>
+    </body>
+</html>
